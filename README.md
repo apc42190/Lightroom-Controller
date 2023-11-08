@@ -1,5 +1,5 @@
 # Lightroom-Controller
-A basic device for controlling a few photo editing tools in Lightroom Classic. Made with a Raspberry Pi Pico and Circuitpython.
+A basic device for controlling a few photo editing tools in Lightroom Classic made for my sister Rachel. Made with a Raspberry Pi Pico and Circuitpython.
 
 Components:<br />
   2 KY-040 Rotary Encoders<br />
