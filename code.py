@@ -35,14 +35,14 @@ lightroom_state = LightroomState(0)
 dial_1_pin = digitalio.DigitalInOut(board.GP1)
 dial_1_pin.direction = digitalio.Direction.INPUT
 dial_1_pin.pull = digitalio.Pull.UP
-dial_1_button = Debouncer(exp_pin)
+dial_1_button = Debouncer(dial_1_pin)
 
 dial_2_pin = digitalio.DigitalInOut(board.GP26)
 dial_2_pin.direction = digitalio.Direction.INPUT
 dial_2_pin.pull = digitalio.Pull.UP
-dial_2_button = Debouncer(temp_pin)
+dial_2_button = Debouncer(dial_2_pin)
 
-dial_2_encoder = Encoder(board.GP2, board.GP0, keyboard, 2)
+dial_1_encoder = Encoder(board.GP2, board.GP0, keyboard, 2)
 dial_2_encoder = Encoder(board.GP21, board.GP22, keyboard, 0)
 
 
