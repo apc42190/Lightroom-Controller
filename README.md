@@ -24,7 +24,7 @@ Libraries:<br />
 Rotary Encoder Knobs: https://www.thingiverse.com/thing:2797118
 <br />
 <br />
-The Finished Product:<br />
+The Finished Product(looks aren't everything ok):<br />
 ![alt text](PXL_20231114_202313620.MP.jpg)
 <br />
 ![alt text](PXL_20231108_043209249.MP.jpg)
