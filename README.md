@@ -22,5 +22,9 @@ Libraries:<br />
   Adafruit Ticks  <br />
   <br />
 Rotary Encoder Knobs: https://www.thingiverse.com/thing:2797118
-
+<br />
+<br />
+The Finished Product:<br />
+![alt text](PXL_20231114_202313620.MP.jpg)
+<br />
 ![alt text](PXL_20231108_043209249.MP.jpg)
