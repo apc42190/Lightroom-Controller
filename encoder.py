@@ -15,7 +15,7 @@ class LightroomState:
 
 #Manages rotary encoder logic
 class Encoder:
-    def __init__(self, clk_pin, dt_pin, keyboard, offset):
+    def __init__(self, clk_pin, dt_pin, keyboard, offset, button):
         self.clk = digitalio.DigitalInOut(clk_pin)
         self.clk.direction = digitalio.Direction.INPUT
         self.dt = digitalio.DigitalInOut(dt_pin)
@@ -24,6 +24,7 @@ class Encoder:
         self.count = 0
         self.offset = offset
         self.keyboard = keyboard
+        self.button = button
 
     #Update lightroom selected slider until it matches the slider that is selected by the updated rotary encoder
     def equalizeState(self, state):
@@ -40,25 +41,41 @@ class Encoder:
 
     #If encoder moved clockwise, increase the value of selected slider
     def up(self, state):
-        self.equalizeState(state)
-        self.keyboard.press(Keycode.KEYPAD_PLUS)
-        time.sleep(0.09)
-        self.keyboard.release(Keycode.KEYPAD_PLUS)
+        #Hold encoder button down to change current slider selection
+        if not self.button.value:
+            self.increment_offset(state)
+        else:
+            self.equalizeState(state)
+            self.keyboard.press(Keycode.KEYPAD_PLUS)
+            time.sleep(0.09)
+            self.keyboard.release(Keycode.KEYPAD_PLUS)
 
     #If encoder moved counter-clockwise, decrease the value of selected slider
     def down(self, state):
-        self.equalizeState(state)
-        self.keyboard.press(Keycode.KEYPAD_MINUS)
-        time.sleep(0.09)
-        self.keyboard.release(Keycode.KEYPAD_MINUS)
+        #Hold encoder button down to change current slider selection
+        if not self.button.value:
+            self.decrement_offset(state)
+        else:
+            self.equalizeState(state)
+            self.keyboard.press(Keycode.KEYPAD_MINUS)
+            time.sleep(0.09)
+            self.keyboard.release(Keycode.KEYPAD_MINUS)
 
     #Advances slider selection for this encoder and lightroom by 1
-    def advance_offset(self, state):
+    def increment_offset(self, state):
         self.equalizeState(state)
         self.offset = (self.offset + 1) % 13
         self.keyboard.press(Keycode.PERIOD)
         self.keyboard.release(Keycode.PERIOD)
         state.increment()
+
+    #Decrements slider selection for this encoder and lightroom by 1
+    def decrement_offset(self, state):
+        self.equalizeState(state)
+        self.offset = (self.offset - 1) % 13
+        self.keyboard.press(Keycode.COMMA)
+        self.keyboard.release(Keycode.COMMA)
+        state.decrement()
 
     #Checks encoder for increase or decrease
     def read(self, state):

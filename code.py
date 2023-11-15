@@ -35,15 +35,13 @@ lightroom_state = LightroomState(0)
 dial_1_pin = digitalio.DigitalInOut(board.GP1)
 dial_1_pin.direction = digitalio.Direction.INPUT
 dial_1_pin.pull = digitalio.Pull.UP
-dial_1_button = Debouncer(dial_1_pin)
 
 dial_2_pin = digitalio.DigitalInOut(board.GP26)
 dial_2_pin.direction = digitalio.Direction.INPUT
 dial_2_pin.pull = digitalio.Pull.UP
-dial_2_button = Debouncer(dial_2_pin)
 
-dial_1_encoder = Encoder(board.GP2, board.GP0, keyboard, 2)
-dial_2_encoder = Encoder(board.GP21, board.GP22, keyboard, 0)
+dial_1_encoder = Encoder(board.GP2, board.GP0, keyboard, 2, dial_1_pin)
+dial_2_encoder = Encoder(board.GP21, board.GP22, keyboard, 0, dial_2_pin)
 
 
 while(1):
@@ -59,14 +57,6 @@ while(1):
                     keyboard.press(Keycode.KEYPAD_ENTER)
                     time.sleep(0.09)
                     keyboard.release(Keycode.KEYPAD_ENTER)
-
-    dial_1_button.update()
-    if dial_1_button.fell:
-        dial_1_encoder.advance_offset(lightroom_state)
-
-    dial_2_button.update()
-    if dial_2_button.fell:
-        dial_2_encoder.advance_offset(lightroom_state)
 
     dial_1_encoder.read(lightroom_state)
     dial_2_encoder.read(lightroom_state)
